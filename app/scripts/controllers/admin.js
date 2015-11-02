@@ -15,13 +15,13 @@ angular.module('rscineFrontendApp')
          // create an admin application
          var admin = nga.application('Rscine Admin Panel')
            .baseApiUrl('http://dev.rscine.com/app_dev.php/api/');
-         
+
          var user = nga.entity('users');
-         
+
          var county = nga.entity('counties');
-         
+
          var department = nga.entity('departments');
-         
+
          var userViewFields = [
              nga.field('id'),
              nga.field('username').label('Nom d\'utilisateur'),
@@ -30,55 +30,55 @@ angular.module('rscineFrontendApp')
                 .targetEntity(department)
                 .targetField(nga.field('name'))
          ];
-         
+
          var userCreateFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email', 'email').label('E-mail'),
              nga.field('firstPlainPassword', 'password').label('Mot de passe'),
              nga.field('secondPlainPassword', 'password').label('Confirmation du mot de passe')
          ];
-         
+
          var userEditFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email', 'email').label('E-mail')
          ];
-         
+
          var userDeleteFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email').label('E-mail')
          ];
-         
+
          user.listView().fields(userViewFields);
          user.showView().fields(userViewFields);
-         
+
          user.editionView().fields(userEditFields);
-         
+
          user.deletionView().fields(userDeleteFields);
-         
+
          user.creationView().fields(userCreateFields);
-         
+
          county.listView().fields([
              nga.field('id'),
              nga.field('name')
          ]);
-         
+
          department.listView().fields([
              nga.field('id'),
              nga.field('name'),
              nga.field('number')
          ]);
-         
+
          department.showView().fields([
              nga.field('id'),
              nga.field('name'),
              nga.field('number')
          ]);
-         
+
          department.editionView().fields([
              nga.field('name'),
              nga.field('number')
          ]);
-         
+
          admin.addEntity(user);
          admin.addEntity(county);
          admin.addEntity(department);
@@ -92,17 +92,30 @@ angular.module('rscineFrontendApp')
     .config(['RestangularProvider', function(RestangularProvider) {
         RestangularProvider.addFullRequestInterceptor(function(element, operation, what, url, headers, params, httpConfig) {
 
-            if(operation === 'patch' || operation === 'put') {
-                delete element.id; // On supprime l'id (qui n'est pas dans le formulaire de l'api)
-                element = { appbundle_user_edit: element };
+            if (what === 'users') {
+
+                if(operation === 'patch' || operation === 'put') {
+                    delete element.id; // On supprime l'id (qui n'est pas dans le formulaire de l'api)
+                    element = { appbundle_user_edit: element };
+                }
+
+                if(operation === 'post') {
+                    delete element.id; // On supprime l'id (qui n'est pas dans le formulaire de l'api)
+                    element.plainPassword = {first: element.firstPlainPassword, second: element.secondPlainPassword};
+                    delete element.firstPlainPassword;
+                    delete element.secondPlainPassword;
+                    element = { appbundle_user_register: element };
+                }
+
             }
-            if(operation === 'post') {
-                delete element.id; // On supprime l'id (qui n'est pas dans le formulaire de l'api)
-                element.plainPassword = {first: element.firstPlainPassword, second: element.secondPlainPassword};
-                delete element.firstPlainPassword;
-                delete element.secondPlainPassword;
-                element = { appbundle_user_register: element };
+
+            if (what === 'departments') {
+                if(operation === 'post') {
+                    delete element.id; // On supprime l'id (qui n'est pas dans le formulaire de l'api)
+                    element = { appbundle_department: element };
+                }
             }
+
             return { element: element };
         });
     }])
