@@ -12,7 +12,7 @@ angular.module('rscineFrontendApp')
 
       var nga = NgAdminConfigurationProvider;
       var admin = nga.application('Rscine Admin Panel Via Provider Dude !!')
-         .baseApiUrl('http://dev.rscine.com/app_dev.php/api/');
+         .baseApiUrl('http://rscine.dev/api/');
 
     /**
      * Gets the ng-admin application
