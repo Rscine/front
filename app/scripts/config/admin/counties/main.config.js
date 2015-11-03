@@ -16,7 +16,7 @@ angular.module('rscineFrontendApp')
          var admin = adminProvider.getApplication();
 
 
-         var county = nga.entity('counties');
+         var county = adminProvider.getEntity('counties');
 
          county.listView().fields([
              nga.field('id'),

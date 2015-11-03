@@ -15,7 +15,7 @@ angular.module('rscineFrontendApp')
          // create an admin application
          var admin = adminProvider.getApplication();
 
-         var department = nga.entity('departments');
+         var department = adminProvider.getEntity('departments');
 
          department.listView().fields([
              nga.field('id'),

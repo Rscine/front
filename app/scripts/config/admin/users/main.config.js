@@ -14,7 +14,7 @@ angular.module('rscineFrontendApp')
 
          var admin = adminProvider.getApplication();
 
-         var user = nga.entity('users');
+         var user = adminProvider.getEntity('users');
 
          var userViewFields = [
              nga.field('id'),
