@@ -31,7 +31,15 @@ angular.module('rscineFrontendApp')
 
          var userEditFields = [
              nga.field('username').label('Nom d\'utilisateur'),
-             nga.field('email', 'email').label('E-mail')
+             nga.field('email', 'email').label('E-mail'),
+             nga.field('department_id', 'reference')
+                  .label('Départment')
+                  .targetEntity(adminProvider.getEntity('departments'))
+                  .targetField(nga.field('name'))
+                  .remoteComplete(true, {
+                      refreshDelay: 200,
+                      searchQuery: search => ({ q: search })
+                  })
          ];
 
          var userDeleteFields = [
