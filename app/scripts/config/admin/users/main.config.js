@@ -21,7 +21,7 @@ angular.module('rscineFrontendApp')
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email').label('E-mail'),
              nga.field('department_id', 'reference')
-                .isDetailLink(false)
+                .isDetailLink(true)
                 .label('Départment')
                 .targetEntity(adminProvider.getEntity('departments'))
                 .targetField(nga.field('name'))
@@ -37,7 +37,17 @@ angular.module('rscineFrontendApp')
 
          var userEditFields = [
              nga.field('username').label('Nom d\'utilisateur'),
-             nga.field('email', 'email').label('E-mail')
+             nga.field('email', 'email').label('E-mail'),
+             nga.field('department_id', 'reference')
+               .label('Département')
+               .targetEntity(adminProvider.getEntity('departments'))
+               .targetField(nga.field('name'))
+               .sortField('name')
+               .sortDir('ASC')
+               .remoteComplete(true, {
+                   refreshDelay: 200,
+                   searchQuery: search => ({ q: search })
+               })
          ];
 
          var userDeleteFields = [
@@ -45,10 +55,15 @@ angular.module('rscineFrontendApp')
              nga.field('email').label('E-mail')
          ];
 
-         user.listView().fields(userViewFields);
+         user.listView()
+            .fields(userViewFields)
+            .listActions(['edit', 'delete']);
+
          user.showView().fields(userViewFields);
 
-         user.editionView().fields(userEditFields);
+         user.editionView()
+            .fields(userEditFields)
+            .actions(['back', 'delete']);
 
          user.deletionView().fields(userDeleteFields);
 
