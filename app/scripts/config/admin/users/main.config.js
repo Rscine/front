@@ -67,7 +67,9 @@ angular.module('rscineFrontendApp')
 
          user.deletionView().fields(userDeleteFields);
 
-         user.creationView().fields(userCreateFields);
+         user.creationView()
+            .fields(userCreateFields)
+            .actions(['back']);
 
          admin.addEntity(user);
          // more configuation here later
