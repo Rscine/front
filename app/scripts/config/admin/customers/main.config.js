@@ -72,7 +72,6 @@ angular.module('rscineFrontendApp')
             .actions(['back']);
 
          admin.addEntity(customer);
-         nga.configure(admin);
 
         adminProvider.setConfiguration(admin);
     });
