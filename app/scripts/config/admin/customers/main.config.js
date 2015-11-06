@@ -14,9 +14,9 @@ angular.module('rscineFrontendApp')
 
          var admin = adminProvider.getApplication();
 
-         var user = adminProvider.getEntity('customers');
+         var customer = adminProvider.getEntity('customers');
 
-         var userViewFields = [
+         var customerViewFields = [
              nga.field('id'),
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email').label('E-mail'),
@@ -28,14 +28,14 @@ angular.module('rscineFrontendApp')
                 .singleApiCall(ids => ({'id': ids }))
          ];
 
-         var userCreateFields = [
+         var customerCreateFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email', 'email').label('E-mail'),
              nga.field('firstPlainPassword', 'password').label('Mot de passe'),
              nga.field('secondPlainPassword', 'password').label('Confirmation du mot de passe')
          ];
 
-         var userEditFields = [
+         var customerEditFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email', 'email').label('E-mail'),
              nga.field('department_id', 'reference')
@@ -50,28 +50,28 @@ angular.module('rscineFrontendApp')
                })
          ];
 
-         var userDeleteFields = [
+         var customerDeleteFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email').label('E-mail')
          ];
 
-         user.listView()
-            .fields(userViewFields)
+         customer.listView()
+            .fields(customerViewFields)
             .listActions(['edit', 'delete']);
 
-         user.showView().fields(userViewFields);
+         customer.showView().fields(customerViewFields);
 
-         user.editionView()
-            .fields(userEditFields)
+         customer.editionView()
+            .fields(customerEditFields)
             .actions(['back', 'delete']);
 
-         user.deletionView().fields(userDeleteFields);
+         customer.deletionView().fields(customerDeleteFields);
 
-         user.creationView()
-            .fields(userCreateFields)
+         customer.creationView()
+            .fields(customerCreateFields)
             .actions(['back']);
 
-         admin.addEntity(user);
+         admin.addEntity(customer);
          nga.configure(admin);
 
         adminProvider.setConfiguration(admin);
