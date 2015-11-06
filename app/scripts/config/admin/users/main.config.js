@@ -28,13 +28,6 @@ angular.module('rscineFrontendApp')
                 .singleApiCall(ids => ({'id': ids }))
          ];
 
-         var userCreateFields = [
-             nga.field('username').label('Nom d\'utilisateur'),
-             nga.field('email', 'email').label('E-mail'),
-             nga.field('firstPlainPassword', 'password').label('Mot de passe'),
-             nga.field('secondPlainPassword', 'password').label('Confirmation du mot de passe')
-         ];
-
          var userEditFields = [
              nga.field('username').label('Nom d\'utilisateur'),
              nga.field('email', 'email').label('E-mail'),
@@ -66,11 +59,7 @@ angular.module('rscineFrontendApp')
             .actions(['back', 'delete']);
 
          user.deletionView().fields(userDeleteFields);
-
-         user.creationView()
-            .fields(userCreateFields)
-            .actions(['back']);
-
+         
          admin.addEntity(user);
          // more configuation here later
          // ...
