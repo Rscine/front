@@ -26,6 +26,9 @@ angular.module('rscineFrontendApp')
             )
             .addChild(
                 nga.menu(adminProvider.getEntity('counties'))
+            )
+            .addChild(
+                nga.menu(adminProvider.getEntity('offers'))
             );
 
         admin.menu(menu);
