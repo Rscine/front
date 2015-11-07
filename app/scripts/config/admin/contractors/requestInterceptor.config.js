@@ -16,7 +16,7 @@ angular.module('rscineFrontendApp')
                 if(operation === 'patch' || operation === 'put') {
                     delete element.id; // On supprime l'id (qui n'est pas dans le formulaire de l'api)
                     delete element.department_id;
-                    element = { appbundle_contractors_profile: element };
+                    element = { appbundle_contractor_profile: element };
                 }
 
                 if(operation === 'post') {
