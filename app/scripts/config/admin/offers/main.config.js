@@ -17,19 +17,46 @@ angular.module('rscineFrontendApp')
          var offer = adminProvider.getEntity('offers');
 
          var offerViewFields = [
-             nga.field('id'),
-             nga.field('name').label('Nom de l\'offre'),
-             nga.field('description', 'text').label('Description')
-         ];
+            nga.field('id'),
+            nga.field('name').label('Nom de l\'offre'),
+            nga.field('description', 'text').label('Description'),
+            nga.field('applicants', 'reference_many')
+                .targetEntity(adminProvider.getEntity("contractors"))
+                .targetField(nga.field('username'))
+                .singleApiCall(ids => ({'id': ids })),
+            nga.field('handler_id', 'reference')
+              .isDetailLink(false)
+              .label('Handler')
+              .targetEntity(adminProvider.getEntity('contractors'))
+              .targetField(nga.field('username'))
+              .singleApiCall(ids => ({'id': ids })),
+            nga.field('creator_id', 'reference')
+              .isDetailLink(false)
+              .label('Créateur')
+              .targetEntity(adminProvider.getEntity('customers'))
+              .targetField(nga.field('username'))
+              .singleApiCall(ids => ({'id': ids }))
+            ];
 
          var offerCreateFields = [
              nga.field('name').label('Nom de l\'offre'),
-             nga.field('description', 'text').label('Description')
+             nga.field('description', 'wysiwyg').label('Description')
          ];
 
          var offerEditFields = [
-             nga.field('name').label('Nom de l\'offre'),
-             nga.field('description', 'text').label('Description')
+            nga.field('name').label('Nom de l\'offre'),
+            nga.field('description', 'wysiwyg').label('Description'),
+            // nga.field('applicants', 'referenced_list') // display list of related comments
+            //     .targetEntity(adminProvider.getEntity('users'))
+            //     .targetReferenceField('')
+            //     .targetFields([
+            //         nga.field('id'),
+            //         nga.field('created_at').label('Posted'),
+            //         nga.field('body').label('Comment')
+            //     ])
+            //     .sortField('created_at')
+            //     .sortDir('DESC')
+            //     .listActions(['edit'])
          ];
 
          var offerDeleteFields = [
@@ -40,7 +67,7 @@ angular.module('rscineFrontendApp')
 
          offer.listView()
             .fields(offerViewFields)
-            .listActions(['edit', 'delete']);
+            .listActions(['edit', 'delete', 'show']);
 
          offer.showView().fields(offerViewFields);
 
