@@ -22,6 +22,9 @@ angular.module('rscineFrontendApp')
                 .addChild(nga.menu(adminProvider.getEntity('contractors')))
             )
             .addChild(
+                nga.menu(adminProvider.getEntity('companies'))
+            )
+            .addChild(
                 nga.menu(adminProvider.getEntity('departments'))
             )
             .addChild(
