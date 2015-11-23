@@ -25,6 +25,12 @@ angular.module('rscineFrontendApp')
                 .label('Départment')
                 .targetEntity(adminProvider.getEntity('departments'))
                 .targetField(nga.field('name'))
+                .singleApiCall(ids => ({'id': ids })),
+             nga.field('company_id', 'reference')
+                .isDetailLink(true)
+                .label('Société')
+                .targetEntity(adminProvider.getEntity('companies'))
+                .targetField(nga.field('name'))
                 .singleApiCall(ids => ({'id': ids }))
          ];
 
