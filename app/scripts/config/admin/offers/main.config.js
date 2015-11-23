@@ -45,18 +45,7 @@ angular.module('rscineFrontendApp')
 
          var offerEditFields = [
             nga.field('name').label('Nom de l\'offre'),
-            nga.field('description', 'wysiwyg').label('Description'),
-            // nga.field('applicants', 'referenced_list') // display list of related comments
-            //     .targetEntity(adminProvider.getEntity('users'))
-            //     .targetReferenceField('')
-            //     .targetFields([
-            //         nga.field('id'),
-            //         nga.field('created_at').label('Posted'),
-            //         nga.field('body').label('Comment')
-            //     ])
-            //     .sortField('created_at')
-            //     .sortDir('DESC')
-            //     .listActions(['edit'])
+            nga.field('description', 'wysiwyg').label('Description')
          ];
 
          var offerDeleteFields = [
