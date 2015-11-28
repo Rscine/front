@@ -10,12 +10,8 @@
  */
 angular
   .module('rscineFrontendApp', [
-    'ngAnimate',
-    'ngCookies',
     'ngResource',
     'ngRoute',
-    'ngSanitize',
-    'ngTouch',
     'ng-admin'
   ])
   .config(function ($routeProvider) {
